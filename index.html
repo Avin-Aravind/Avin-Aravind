@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will You Be My Valentine? 🧸💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #ffe6f2, #fff0f5, #f8d7da);
+      font-family: 'Comic Neue', cursive;
+      color: #ff5e8a;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      transition: all 1.5s ease;
+    }
+
+    .floaties { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+    .float-item {
+      position: absolute;
+      font-size: 2.8rem;
+      animation: floatUp 10s infinite linear;
+      opacity: 0.85;
+      filter: drop-shadow(0 5px 15px rgba(255,100,150,0.5));
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(120vh) rotate(0deg) scale(0.6); }
+      100% { transform: translateY(-30vh) rotate(1440deg) scale(1.3); }
+    }
+
+    .container {
+      text-align: center;
+      z-index: 10;
+      padding: 50px 35px;
+      background: rgba(255, 240, 245, 0.8);
+      border-radius: 50px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 25px 60px rgba(255, 105, 180, 0.35);
+      border: 4px solid #ffb6c1;
+      max-width: 95%;
+      animation: bounceIn 1.6s ease-out;
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.4) rotate(-20deg); opacity:0; }
+      60% { transform: scale(1.15) rotate(6deg); }
+      80% { transform: scale(0.92) rotate(-4deg); }
+      100% { transform: scale(1) rotate(0); opacity:1; }
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 0.8rem;
+      color: #ff69b4;
+      text-shadow: 4px 4px 12px #ffb6c1;
+      font-weight: 700;
+    }
+    .subtitle {
+      font-size: 2rem;
+      color: #ff85a2;
+      margin-bottom: 50px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 120px;
+      margin: 70px 0;
+      position: relative;
+    }
+
+    button {
+      padding: 22px 80px;
+      font-size: 2.4rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #yesBtn {
+      background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+      background-size: 200% 200%;
+      animation: gradientFlow 4s ease infinite;
+      color: white;
+    }
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    #yesBtn:hover {
+      transform: scale(1.25) rotate(10deg) translateY(-12px);
+      box-shadow: 0 25px 60px #ff69b480;
+    }
+
+    #noBtn {
+      background: linear-gradient(45deg, #b0b0b0, #e0e0e0);
+      color: #444;
+      position: absolute;
+      animation: spin 4s linear infinite; /* Continuous spinning! */
+      transform-origin: center;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    #noBtn:hover {
+      background: linear-gradient(45deg, #ff6b6b, #ff9999);
+      color: white;
+      animation-duration: 1.2s; /* Spin faster on hover for funny effect */
+      animation-timing-function: ease-in-out;
+    }
+    #noBtn:active {
+      animation-duration: 0.6s; /* Even faster on click attempt */
+    }
+
+    .msg {
+      font-size: 2rem;
+      color: #ff85a2;
+      margin-top: 40px;
+      opacity: 0;
+      transition: all 1s;
+    }
+    .visible { opacity:1; transform: scale(1.15); }
+
+    /* Surprise screen */
+    #surpriseScreen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #ff9ec1, #ffdde1);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 1.5s;
+    }
+    #surpriseScreen.visible {
+      display: flex;
+      opacity: 1;
+    }
+    #giftBtn {
+      padding: 30px 100px;
+      font-size: 3rem;
+      background: linear-gradient(45deg, #ffd700, #ffaa00, #ffd700);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      box-shadow: 0 15px 50px rgba(255,215,0,0.6);
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      margin-top: 40px;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    #giftText {
+      font-size: 3.5rem;
+      color: #ff1493;
+      text-shadow: 3px 3px 15px #ffb6c1;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 3.2rem; }
+      button { padding: 18px 60px; font-size: 2rem; }
+      .buttons { gap: 80px; flex-direction: column; }
+      #noBtn { position: relative; margin-top: 40px; }
+      #giftText { font-size: 2.8rem; }
+      #giftBtn { padding: 25px 80px; font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="floaties" id="floaties"></div>
+
+  <div class="container" id="mainScreen">
+    <h1>Will You Be My Valentine? 🧸💖</h1>
+    <div class="subtitle">Pretty please? 🥺🫶</div>
+
+    <div class="buttons">
+      <button id="yesBtn">YESS!! 😍💕</button>
+      <button id="noBtn">NO WAY 😤</button>
+    </div>
+
+    <div class="msg" id="msg">Arey... No antunnava? Adhi thiruguthu escape chesthundi ra 😂❤️</div>
+  </div>
+
+  <!-- Surprise screen -->
+  <div id="surpriseScreen">
+    <div id="giftText">Click here for your surprise gift! 🎁✨</div>
+    <button id="giftBtn">Open Gift 💝</button>
+  </div>
+
+  <script>
+    // Floating cute emojis
+    const emojis = ["💖", "🧸", "❤️", "✨", "💕", "🌸", "😘", "🍓", "🎀", "🫶", "🌟"];
+    function createFloaty() {
+      const item = document.createElement("div");
+      item.classList.add("float-item");
+      item.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+      item.style.left = Math.random() * 100 + "vw";
+      item.style.animationDuration = (Math.random() * 7 + 7) + "s";
+      item.style.fontSize = (Math.random() * 2.5 + 1.8) + "rem";
+      document.getElementById("floaties").appendChild(item);
+      setTimeout(() => item.remove(), 12000);
+    }
+    setInterval(createFloaty, 250);
+
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const msg = document.getElementById("msg");
+    const mainScreen = document.getElementById("mainScreen");
+    const surpriseScreen = document.getElementById("surpriseScreen");
+    const giftBtn = document.getElementById("giftBtn");
+
+    function moveNo() {
+      const maxX = window.innerWidth - noBtn.offsetWidth - 60;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 60;
+      let newX = Math.random() * maxX;
+      let newY = Math.random() * maxY;
+
+      const yesRect = yesBtn.getBoundingClientRect();
+      if (Math.abs(newX - yesRect.left) < 280 && Math.abs(newY - yesRect.top) < 280) {
+        newX += 350 * (Math.random() > 0.5 ? 1 : -1);
+        newY += 300 * (Math.random() > 0.5 ? 1 : -1);
+      }
+
+      noBtn.style.left = newX + "px";
+      noBtn.style.top = newY + "px";
+      noBtn.style.position = "fixed";
+      noBtn.style.transform = "rotate(" + (Math.random()*30 - 15) + "deg)"; // extra random tilt while moving
+    }
+
+    noBtn.addEventListener("mouseover", () => {
+      moveNo();
+      noBtn.style.animationDuration = "1s"; // faster spin on hover
+    });
+    noBtn.addEventListener("mouseout", () => {
+      noBtn.style.animationDuration = "4s"; // back to normal spin
+    });
+    noBtn.addEventListener("touchstart", moveNo);
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      noBtn.style.animationDuration = "0.5s"; // crazy fast spin on click attempt
+      noBtn.style.transform = "scale(0.4) rotate(720deg)";
+      setTimeout(() => {
+        noBtn.style.transform = "scale(1)";
+        moveNo();
+      }, 500);
+      msg.classList.add("visible");
+    });
+
+    // Yes → show surprise
+    yesBtn.addEventListener("click", () => {
+      for(let i = 0; i < 60; i++) {
+        setTimeout(createFloaty, i * 30);
+      }
+      mainScreen.style.opacity = "0";
+      setTimeout(() => {
+        mainScreen.style.display = "none";
+        surpriseScreen.classList.add("visible");
+      }, 800);
+    });
+
+    // Gift → your link
+    giftBtn.addEventListener("click", () => {
+      const surpriseLink = "https://instagram.com/yourprofile"; // ← YOUR LINK MARCHU BRO
+
+      document.body.style.transform = "scale(1.5)";
+      document.body.style.opacity = "0";
+      document.body.style.filter = "brightness(1.8)";
+
+      setTimeout(() => {
+        window.location.href = surpriseLink;
+      }, 1200);
+    });
+  </script>
+
+</body>
+</html>
