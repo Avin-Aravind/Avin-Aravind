@@ -115,6 +115,7 @@
       color: #444;
       position: relative;
       animation: spin 6s linear infinite;
+      will-change: transform, left, top;
     }
     @keyframes spin {
       from { transform: rotate(0deg); }
@@ -122,14 +123,13 @@
     }
 
     #noBtn.shake {
-      animation: shake 0.5s ease-in-out;
+      animation: shake 0.4s ease-in-out;
     }
     @keyframes shake {
       0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      20% { transform: translate(-10px, 5px) rotate(-5deg); }
-      40% { transform: translate(10px, -5px) rotate(5deg); }
-      60% { transform: translate(-8px, 4px) rotate(-3deg); }
-      80% { transform: translate(8px, -4px) rotate(3deg); }
+      25% { transform: translate(-12px, 6px) rotate(-6deg); }
+      50% { transform: translate(12px, -6px) rotate(6deg); }
+      75% { transform: translate(-8px, 4px) rotate(-3deg); }
     }
 
     .msg {
@@ -185,7 +185,7 @@
       <button id="noBtn">NO 😤</button>
     </div>
 
-    <div class="msg" id="msg">Areyy... NO try chesthunnava? Adhi escape master ra 😂❤️</div>
+    <div class="msg" id="msg">Areyy... NO touch chesthunnava? Button escape chesthundi ra 😂❤️</div>
   </div>
 
   <div id="surpriseScreen">
@@ -194,7 +194,6 @@
   </div>
 
   <script>
-    // Floating emojis
     const emojis = ["💖", "🧸", "❤️", "✨", "💕", "🌸", "😘", "🍓", "🎀", "🫶", "🌟"];
     function createFloaty() {
       const item = document.createElement("div");
@@ -216,16 +215,15 @@
     const giftBtn = document.getElementById("giftBtn");
 
     function moveNo() {
-      const maxX = window.innerWidth - noBtn.offsetWidth - 50;
-      const maxY = window.innerHeight - noBtn.offsetHeight - 50;
+      const maxX = window.innerWidth - noBtn.offsetWidth - 60;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 60;
       let newX = Math.random() * maxX;
       let newY = Math.random() * maxY;
 
-      // Yes button area avoid cheyadam
       const yesRect = yesBtn.getBoundingClientRect();
-      if (Math.abs(newX - yesRect.left) < 250 && Math.abs(newY - yesRect.top) < 250) {
-        newX += 320 * (Math.random() > 0.5 ? 1 : -1);
-        newY += 300 * (Math.random() > 0.5 ? 1 : -1);
+      if (Math.abs(newX - yesRect.left) < 280 && Math.abs(newY - yesRect.top) < 280) {
+        newX += 350 * (Math.random() > 0.5 ? 1 : -1);
+        newY += 320 * (Math.random() > 0.5 ? 1 : -1);
       }
 
       noBtn.style.left = newX + "px";
@@ -233,22 +231,35 @@
       noBtn.style.position = "fixed";
     }
 
-    // Hover or touch start cheste jump
+    // Hover or first touch → jump
     noBtn.addEventListener("mouseover", moveNo);
-    noBtn.addEventListener("touchstart", moveNo);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault(); // prevent any default touch behavior
+      moveNo();
+    });
 
-    // Click cheste kuda jump + shake effect (disappear avvadhu)
+    // Click / tap → shake + jump to new random position (button undi ne untundi)
     noBtn.addEventListener("click", (e) => {
       e.preventDefault();
       noBtn.classList.add("shake");
       setTimeout(() => {
         noBtn.classList.remove("shake");
-        moveNo(); // click ayina kuda random position ki jump
-      }, 500);
+        moveNo(); // always jump to new place
+      }, 400);
       msg.classList.add("visible");
     });
 
-    // Yes click → surprise
+    // Also listen to touchend for better mobile response
+    noBtn.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      noBtn.classList.add("shake");
+      setTimeout(() => {
+        noBtn.classList.remove("shake");
+        moveNo();
+      }, 400);
+      msg.classList.add("visible");
+    });
+
     yesBtn.addEventListener("click", () => {
       for(let i = 0; i < 50; i++) setTimeout(createFloaty, i * 40);
       mainScreen.style.opacity = "0";
@@ -258,9 +269,8 @@
       }, 700);
     });
 
-    // Gift → your link
     giftBtn.addEventListener("click", () => {
-      const surpriseLink = "https://instagram.com/yourprofile"; // ← CHANGE THIS
+      const surpriseLink = "https://instagram.com/yourprofile"; // ← idhi marchu bro
       document.body.style.transform = "scale(1.4)";
       document.body.style.opacity = "0";
       setTimeout(() => window.location.href = surpriseLink, 1000);
