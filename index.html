@@ -15,7 +15,7 @@
     }
     body {
       background: linear-gradient(rgba(255, 105, 180, 0.35), rgba(255, 182, 193, 0.45)), 
-                  url('https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat fixed;
+                  url('https://i.ibb.co/0jf2ycTS/image.jpg') center/cover no-repeat fixed;
       font-family: 'Comic Neue', cursive;
       color: #ff5e8a;
       display: flex;
@@ -120,8 +120,6 @@
       background: linear-gradient(45deg, #b0b0b0, #e0e0e0);
       color: #444;
       position: relative;
-      /* No rotation anymore */
-      will-change: transform, left, top;
     }
 
     #noBtn.shake {
@@ -147,7 +145,7 @@
       position: fixed;
       inset: 0;
       background: linear-gradient(rgba(255,158,193,0.8), rgba(255,221,225,0.8)), 
-                  url('https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat fixed;
+                  url('https://i.ibb.co/0jf2ycTS/image.jpg') center/cover no-repeat fixed;
       display: none;
       flex-direction: column;
       justify-content: center;
@@ -194,7 +192,7 @@
       <button id="noBtn">NO 😤</button>
     </div>
 
-    <div class="msg" id="msg">Areyy... NO try chesthunnava?😂 Donga, Yes click chey ❤️</div>
+    <div class="msg" id="msg">Areyy... NO try chesthunnava? Button escape master ra 😂❤️</div>
   </div>
 
   <div id="surpriseScreen">
@@ -244,7 +242,6 @@
       noBtn.style.position = "absolute";
     }
 
-    // Initial position: NO button right side lo undali (pakka pakkane)
     setTimeout(() => {
       noBtn.style.left = '65%';
       noBtn.style.top = '50%';
@@ -293,4 +290,3 @@
 
 </body>
 </html>
-
