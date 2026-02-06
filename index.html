@@ -11,7 +11,7 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
-      touch-action: manipulation; /* Prevents double-tap zoom & improves touch */
+      touch-action: manipulation;
     }
     body {
       background: linear-gradient(135deg, #ffe6f2, #fff0f5, #f8d7da);
@@ -21,7 +21,7 @@
       justify-content: center;
       align-items: center;
       position: relative;
-      min-height: 100dvh; /* Key fix: dynamic viewport height */
+      min-height: 100dvh;
       height: 100dvh;
       transition: all 1.5s ease;
     }
@@ -38,7 +38,6 @@
       font-size: clamp(1.8rem, 5vw, 2.8rem);
       animation: floatUp 10s infinite linear;
       opacity: 0.85;
-      filter: drop-shadow(0 5px 15px rgba(255,100,150,0.5));
     }
     @keyframes floatUp {
       0% { transform: translateY(110dvh) rotate(0deg) scale(0.6); }
@@ -56,7 +55,6 @@
       border: 4px solid #ffb6c1;
       max-width: 92vw;
       max-height: 85dvh;
-      overflow: hidden;
       animation: bounceIn 1.6s ease-out;
     }
     @keyframes bounceIn {
@@ -70,7 +68,6 @@
       margin-bottom: 1vh;
       color: #ff69b4;
       text-shadow: 3px 3px 10px #ffb6c1;
-      font-weight: 700;
     }
     .subtitle {
       font-size: clamp(1.5rem, 5vw, 2.2rem);
@@ -93,7 +90,7 @@
       border: none;
       border-radius: 999px;
       cursor: pointer;
-      transition: all 0.4s ease;
+      transition: all 0.3s ease;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       font-family: 'Poppins', sans-serif;
       touch-action: manipulation;
@@ -111,23 +108,28 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    #yesBtn:active {
-      transform: scale(0.92);
-    }
+    #yesBtn:active { transform: scale(0.92); }
 
     #noBtn {
       background: linear-gradient(45deg, #b0b0b0, #e0e0e0);
       color: #444;
-      position: relative; /* Changed to relative for mobile stacking */
-      animation: spin 5s linear infinite;
-      transform-origin: center;
+      position: relative;
+      animation: spin 6s linear infinite;
     }
     @keyframes spin {
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
     }
-    #noBtn:active {
-      animation-duration: 0.8s;
+
+    #noBtn.shake {
+      animation: shake 0.5s ease-in-out;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-10px, 5px) rotate(-5deg); }
+      40% { transform: translate(10px, -5px) rotate(5deg); }
+      60% { transform: translate(-8px, 4px) rotate(-3deg); }
+      80% { transform: translate(8px, -4px) rotate(3deg); }
     }
 
     .msg {
@@ -139,7 +141,6 @@
     }
     .visible { opacity:1; transform: scale(1.1); }
 
-    /* Surprise screen - full screen mobile friendly */
     #surpriseScreen {
       position: fixed;
       inset: 0;
@@ -166,15 +167,9 @@
       border: none;
       border-radius: 999px;
       box-shadow: 0 12px 40px rgba(255,215,0,0.5);
-      cursor: pointer;
       animation: pulse 2s infinite;
     }
     @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-
-    @media (min-width: 601px) {
-      .buttons { flex-direction: row; gap: 12vw; }
-      #noBtn { position: absolute; }
-    }
   </style>
 </head>
 <body>
@@ -187,10 +182,10 @@
 
     <div class="buttons">
       <button id="yesBtn">YESS!! 😍💕</button>
-      <button id="noBtn">NO WAY 😤</button>
+      <button id="noBtn">NO 😤</button>
     </div>
 
-    <div class="msg" id="msg">Arey... No antunnava? Adhi thiruguthu escape chesthundi ra 😂❤️</div>
+    <div class="msg" id="msg">Areyy... NO try chesthunnava? Adhi escape master ra 😂❤️</div>
   </div>
 
   <div id="surpriseScreen">
@@ -199,6 +194,7 @@
   </div>
 
   <script>
+    // Floating emojis
     const emojis = ["💖", "🧸", "❤️", "✨", "💕", "🌸", "😘", "🍓", "🎀", "🫶", "🌟"];
     function createFloaty() {
       const item = document.createElement("div");
@@ -210,7 +206,7 @@
       document.getElementById("floaties").appendChild(item);
       setTimeout(() => item.remove(), 12000);
     }
-    setInterval(createFloaty, 300); // Slightly slower for mobile performance
+    setInterval(createFloaty, 300);
 
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
@@ -225,10 +221,11 @@
       let newX = Math.random() * maxX;
       let newY = Math.random() * maxY;
 
+      // Yes button area avoid cheyadam
       const yesRect = yesBtn.getBoundingClientRect();
       if (Math.abs(newX - yesRect.left) < 250 && Math.abs(newY - yesRect.top) < 250) {
-        newX += 300 * (Math.random() > 0.5 ? 1 : -1);
-        newY += 280 * (Math.random() > 0.5 ? 1 : -1);
+        newX += 320 * (Math.random() > 0.5 ? 1 : -1);
+        newY += 300 * (Math.random() > 0.5 ? 1 : -1);
       }
 
       noBtn.style.left = newX + "px";
@@ -236,18 +233,22 @@
       noBtn.style.position = "fixed";
     }
 
+    // Hover or touch start cheste jump
     noBtn.addEventListener("mouseover", moveNo);
-    noBtn.addEventListener("touchstart", moveNo); // Mobile touch trigger
+    noBtn.addEventListener("touchstart", moveNo);
+
+    // Click cheste kuda jump + shake effect (disappear avvadhu)
     noBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      noBtn.style.animationDuration = "0.6s";
+      noBtn.classList.add("shake");
       setTimeout(() => {
-        noBtn.style.animationDuration = "5s";
-        moveNo();
-      }, 600);
+        noBtn.classList.remove("shake");
+        moveNo(); // click ayina kuda random position ki jump
+      }, 500);
       msg.classList.add("visible");
     });
 
+    // Yes click → surprise
     yesBtn.addEventListener("click", () => {
       for(let i = 0; i < 50; i++) setTimeout(createFloaty, i * 40);
       mainScreen.style.opacity = "0";
@@ -257,8 +258,9 @@
       }, 700);
     });
 
+    // Gift → your link
     giftBtn.addEventListener("click", () => {
-      const surpriseLink = "https://instagram.com/yourprofile"; // ← YOUR LINK CHANGE CHEY
+      const surpriseLink = "https://instagram.com/yourprofile"; // ← CHANGE THIS
       document.body.style.transform = "scale(1.4)";
       document.body.style.opacity = "0";
       setTimeout(() => window.location.href = surpriseLink, 1000);
