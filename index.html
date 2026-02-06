@@ -8,102 +8,102 @@
   <style>
     html, body {
       height: 100%;
-      min-height: -webkit-fill-available; /* Mobile Safari fix */
       margin: 0;
       padding: 0;
+      overflow: hidden;
+      touch-action: manipulation; /* Prevents double-tap zoom & improves touch */
     }
     body {
       background: linear-gradient(135deg, #ffe6f2, #fff0f5, #f8d7da);
       font-family: 'Comic Neue', cursive;
       color: #ff5e8a;
-      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
+      min-height: 100dvh; /* Key fix: dynamic viewport height */
+      height: 100dvh;
       transition: all 1.5s ease;
-      height: 100vh;
-      height: 100dvh; /* Dynamic viewport height - modern fix */
     }
 
     .floaties {
-      position: absolute;
+      position: fixed;
       inset: 0;
       pointer-events: none;
       overflow: hidden;
+      z-index: 1;
     }
     .float-item {
       position: absolute;
-      font-size: 2.8rem;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
       animation: floatUp 10s infinite linear;
       opacity: 0.85;
       filter: drop-shadow(0 5px 15px rgba(255,100,150,0.5));
     }
     @keyframes floatUp {
-      0% { transform: translateY(120dvh) rotate(0deg) scale(0.6); }
-      100% { transform: translateY(-30dvh) rotate(1440deg) scale(1.3); }
+      0% { transform: translateY(110dvh) rotate(0deg) scale(0.6); }
+      100% { transform: translateY(-40dvh) rotate(1440deg) scale(1.3); }
     }
 
     .container {
       text-align: center;
       z-index: 10;
-      padding: 4vh 5vw;
-      background: rgba(255, 240, 245, 0.8);
-      border-radius: 50px;
+      padding: clamp(3vh, 5vw, 5vh) clamp(4vw, 6vw, 8vw);
+      background: rgba(255, 240, 245, 0.82);
+      border-radius: 40px;
       backdrop-filter: blur(18px);
-      box-shadow: 0 25px 60px rgba(255, 105, 180, 0.35);
+      box-shadow: 0 20px 50px rgba(255, 105, 180, 0.4);
       border: 4px solid #ffb6c1;
-      max-width: 95vw;
-      max-height: 90dvh;
-      overflow-y: auto; /* Just in case, but shouldn't need */
+      max-width: 92vw;
+      max-height: 85dvh;
+      overflow: hidden;
       animation: bounceIn 1.6s ease-out;
     }
     @keyframes bounceIn {
-      0% { transform: scale(0.4) rotate(-20deg); opacity:0; }
-      60% { transform: scale(1.15) rotate(6deg); }
-      80% { transform: scale(0.92) rotate(-4deg); }
+      0% { transform: scale(0.5) rotate(-15deg); opacity:0; }
+      60% { transform: scale(1.1) rotate(5deg); }
       100% { transform: scale(1) rotate(0); opacity:1; }
     }
 
     h1 {
-      font-size: clamp(2.5rem, 8vw, 4rem);
-      margin-bottom: 0.8rem;
+      font-size: clamp(2.8rem, 9vw, 4.2rem);
+      margin-bottom: 1vh;
       color: #ff69b4;
-      text-shadow: 4px 4px 12px #ffb6c1;
+      text-shadow: 3px 3px 10px #ffb6c1;
       font-weight: 700;
     }
     .subtitle {
-      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
       color: #ff85a2;
       margin-bottom: 5vh;
     }
 
     .buttons {
       display: flex;
-      justify-content: center;
-      gap: 10vw;
-      margin: 7vh 0;
-      position: relative;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      gap: 6vh;
+      margin: 6vh 0;
     }
 
     button {
-      padding: clamp(16px, 5vw, 22px) clamp(50px, 12vw, 80px);
-      font-size: clamp(1.6rem, 6vw, 2.4rem);
+      padding: clamp(14px, 4vw, 20px) clamp(40px, 12vw, 70px);
+      font-size: clamp(1.8rem, 6vw, 2.4rem);
       font-weight: bold;
       border: none;
       border-radius: 999px;
       cursor: pointer;
       transition: all 0.4s ease;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       font-family: 'Poppins', sans-serif;
-      margin: 1vh 0;
+      touch-action: manipulation;
+      user-select: none;
     }
 
     #yesBtn {
       background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
       background-size: 200% 200%;
-      animation: gradientFlow 4s ease infinite;
+      animation: gradientFlow 5s ease infinite;
       color: white;
     }
     @keyframes gradientFlow {
@@ -111,35 +111,35 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    #yesBtn:hover {
-      transform: scale(1.15) rotate(8deg) translateY(-10px);
+    #yesBtn:active {
+      transform: scale(0.92);
     }
 
     #noBtn {
       background: linear-gradient(45deg, #b0b0b0, #e0e0e0);
       color: #444;
-      position: absolute;
-      animation: spin 4s linear infinite;
+      position: relative; /* Changed to relative for mobile stacking */
+      animation: spin 5s linear infinite;
       transform-origin: center;
     }
     @keyframes spin {
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
     }
-    #noBtn:hover {
-      animation-duration: 1.2s;
+    #noBtn:active {
+      animation-duration: 0.8s;
     }
 
     .msg {
-      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-size: clamp(1.4rem, 4.5vw, 1.9rem);
       color: #ff85a2;
       margin-top: 4vh;
       opacity: 0;
       transition: all 1s;
     }
-    .visible { opacity:1; transform: scale(1.15); }
+    .visible { opacity:1; transform: scale(1.1); }
 
-    /* Surprise screen - full viewport fix */
+    /* Surprise screen - full screen mobile friendly */
     #surpriseScreen {
       position: fixed;
       inset: 0;
@@ -150,32 +150,30 @@
       align-items: center;
       z-index: 100;
       padding: 5vw;
-    }
-    #surpriseScreen.visible {
-      display: flex;
-    }
-    #giftText {
-      font-size: clamp(2.2rem, 7vw, 3.5rem);
-      color: #ff1493;
       text-align: center;
-      margin-bottom: 5vh;
+    }
+    #surpriseScreen.visible { display: flex; }
+    #giftText {
+      font-size: clamp(2.5rem, 8vw, 3.8rem);
+      color: #ff1493;
+      margin-bottom: 6vh;
     }
     #giftBtn {
-      padding: clamp(20px, 6vw, 30px) clamp(60px, 15vw, 100px);
-      font-size: clamp(2rem, 7vw, 3rem);
+      padding: clamp(18px, 5vw, 28px) clamp(50px, 14vw, 90px);
+      font-size: clamp(2.2rem, 7vw, 3rem);
       background: linear-gradient(45deg, #ffd700, #ffaa00, #ffd700);
-      color: #fff;
+      color: white;
       border: none;
       border-radius: 999px;
-      box-shadow: 0 15px 50px rgba(255,215,0,0.6);
+      box-shadow: 0 12px 40px rgba(255,215,0,0.5);
       cursor: pointer;
       animation: pulse 2s infinite;
     }
-    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 
-    @media (max-width: 600px) {
-      .buttons { gap: 8vh; flex-direction: column; align-items: center; }
-      #noBtn { position: relative; }
+    @media (min-width: 601px) {
+      .buttons { flex-direction: row; gap: 12vw; }
+      #noBtn { position: absolute; }
     }
   </style>
 </head>
@@ -201,7 +199,6 @@
   </div>
 
   <script>
-    // Floating stuff (same as before)
     const emojis = ["💖", "🧸", "❤️", "✨", "💕", "🌸", "😘", "🍓", "🎀", "🫶", "🌟"];
     function createFloaty() {
       const item = document.createElement("div");
@@ -213,9 +210,8 @@
       document.getElementById("floaties").appendChild(item);
       setTimeout(() => item.remove(), 12000);
     }
-    setInterval(createFloaty, 250);
+    setInterval(createFloaty, 300); // Slightly slower for mobile performance
 
-    // Rest of the script remains same as previous version
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const msg = document.getElementById("msg");
@@ -224,15 +220,15 @@
     const giftBtn = document.getElementById("giftBtn");
 
     function moveNo() {
-      const maxX = window.innerWidth - noBtn.offsetWidth - 40;
-      const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+      const maxX = window.innerWidth - noBtn.offsetWidth - 50;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 50;
       let newX = Math.random() * maxX;
       let newY = Math.random() * maxY;
 
       const yesRect = yesBtn.getBoundingClientRect();
-      if (Math.abs(newX - yesRect.left) < 220 && Math.abs(newY - yesRect.top) < 220) {
-        newX += 280 * (Math.random() > 0.5 ? 1 : -1);
-        newY += 250 * (Math.random() > 0.5 ? 1 : -1);
+      if (Math.abs(newX - yesRect.left) < 250 && Math.abs(newY - yesRect.top) < 250) {
+        newX += 300 * (Math.random() > 0.5 ? 1 : -1);
+        newY += 280 * (Math.random() > 0.5 ? 1 : -1);
       }
 
       noBtn.style.left = newX + "px";
@@ -241,31 +237,31 @@
     }
 
     noBtn.addEventListener("mouseover", moveNo);
-    noBtn.addEventListener("touchstart", moveNo);
+    noBtn.addEventListener("touchstart", moveNo); // Mobile touch trigger
     noBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      noBtn.style.transform = "scale(0.4) rotate(720deg)";
+      noBtn.style.animationDuration = "0.6s";
       setTimeout(() => {
-        noBtn.style.transform = "scale(1)";
+        noBtn.style.animationDuration = "5s";
         moveNo();
-      }, 500);
+      }, 600);
       msg.classList.add("visible");
     });
 
     yesBtn.addEventListener("click", () => {
-      for(let i = 0; i < 60; i++) setTimeout(createFloaty, i * 30);
+      for(let i = 0; i < 50; i++) setTimeout(createFloaty, i * 40);
       mainScreen.style.opacity = "0";
       setTimeout(() => {
         mainScreen.style.display = "none";
         surpriseScreen.classList.add("visible");
-      }, 800);
+      }, 700);
     });
 
     giftBtn.addEventListener("click", () => {
-      const surpriseLink = "https://instagram.com/yourprofile"; // ← YOUR LINK HERE
-      document.body.style.transform = "scale(1.5)";
+      const surpriseLink = "https://instagram.com/yourprofile"; // ← YOUR LINK CHANGE CHEY
+      document.body.style.transform = "scale(1.4)";
       document.body.style.opacity = "0";
-      setTimeout(() => window.location.href = surpriseLink, 1200);
+      setTimeout(() => window.location.href = surpriseLink, 1000);
     });
   </script>
 
