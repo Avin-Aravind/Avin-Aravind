@@ -23,7 +23,6 @@
       position: relative;
       min-height: 100dvh;
       height: 100dvh;
-      transition: all 1.5s ease;
     }
 
     .floaties {
@@ -35,9 +34,9 @@
     }
     .float-item {
       position: absolute;
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      animation: floatUp 10s infinite linear;
-      opacity: 0.85;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      animation: floatUp 12s infinite linear;
+      opacity: 0.8;
     }
     @keyframes floatUp {
       0% { transform: translateY(110dvh) rotate(0deg) scale(0.6); }
@@ -47,51 +46,55 @@
     .container {
       text-align: center;
       z-index: 10;
-      padding: clamp(3vh, 5vw, 5vh) clamp(4vw, 6vw, 8vw);
-      background: rgba(255, 240, 245, 0.82);
+      padding: clamp(3vh, 5vw, 6vh) clamp(5vw, 7vw, 10vw);
+      background: rgba(255, 240, 245, 0.85);
       border-radius: 40px;
       backdrop-filter: blur(18px);
-      box-shadow: 0 20px 50px rgba(255, 105, 180, 0.4);
+      box-shadow: 0 20px 50px rgba(255, 105, 180, 0.35);
       border: 4px solid #ffb6c1;
-      max-width: 92vw;
-      max-height: 85dvh;
+      width: 90vw;
+      max-width: 380px;
+      max-height: 75dvh;
+      position: relative;
+      overflow: hidden;
       animation: bounceIn 1.6s ease-out;
     }
     @keyframes bounceIn {
-      0% { transform: scale(0.5) rotate(-15deg); opacity:0; }
-      60% { transform: scale(1.1) rotate(5deg); }
+      0% { transform: scale(0.6) rotate(-10deg); opacity:0; }
+      60% { transform: scale(1.08) rotate(4deg); }
       100% { transform: scale(1) rotate(0); opacity:1; }
     }
 
     h1 {
-      font-size: clamp(2.8rem, 9vw, 4.2rem);
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
       margin-bottom: 1vh;
       color: #ff69b4;
-      text-shadow: 3px 3px 10px #ffb6c1;
+      text-shadow: 2px 2px 8px #ffb6c1;
     }
     .subtitle {
-      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      font-size: clamp(1.3rem, 4.5vw, 1.8rem);
       color: #ff85a2;
-      margin-bottom: 5vh;
+      margin-bottom: 4vh;
     }
 
     .buttons {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6vh;
-      margin: 6vh 0;
+      gap: 5vh;
+      margin: 5vh 0;
+      position: relative;
     }
 
     button {
-      padding: clamp(14px, 4vw, 20px) clamp(40px, 12vw, 70px);
-      font-size: clamp(1.8rem, 6vw, 2.4rem);
+      padding: clamp(10px, 3vw, 14px) clamp(28px, 8vw, 45px);
+      font-size: clamp(1.4rem, 5vw, 1.9rem);
       font-weight: bold;
       border: none;
       border-radius: 999px;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.18);
       font-family: 'Poppins', sans-serif;
       touch-action: manipulation;
       user-select: none;
@@ -108,13 +111,13 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    #yesBtn:active { transform: scale(0.92); }
+    #yesBtn:active { transform: scale(0.94); }
 
     #noBtn {
       background: linear-gradient(45deg, #b0b0b0, #e0e0e0);
       color: #444;
-      position: relative;
-      animation: spin 6s linear infinite;
+      position: absolute;
+      animation: spin 7s linear infinite;
       will-change: transform, left, top;
     }
     @keyframes spin {
@@ -127,19 +130,19 @@
     }
     @keyframes shake {
       0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      25% { transform: translate(-12px, 6px) rotate(-6deg); }
-      50% { transform: translate(12px, -6px) rotate(6deg); }
-      75% { transform: translate(-8px, 4px) rotate(-3deg); }
+      25% { transform: translate(-8px, 4px) rotate(-4deg); }
+      50% { transform: translate(8px, -4px) rotate(4deg); }
+      75% { transform: translate(-5px, 3px) rotate(-2deg); }
     }
 
     .msg {
-      font-size: clamp(1.4rem, 4.5vw, 1.9rem);
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
       color: #ff85a2;
-      margin-top: 4vh;
+      margin-top: 3vh;
       opacity: 0;
       transition: all 1s;
     }
-    .visible { opacity:1; transform: scale(1.1); }
+    .visible { opacity:1; transform: scale(1.08); }
 
     #surpriseScreen {
       position: fixed;
@@ -155,18 +158,18 @@
     }
     #surpriseScreen.visible { display: flex; }
     #giftText {
-      font-size: clamp(2.5rem, 8vw, 3.8rem);
+      font-size: clamp(2.2rem, 7vw, 3.4rem);
       color: #ff1493;
-      margin-bottom: 6vh;
+      margin-bottom: 5vh;
     }
     #giftBtn {
-      padding: clamp(18px, 5vw, 28px) clamp(50px, 14vw, 90px);
-      font-size: clamp(2.2rem, 7vw, 3rem);
+      padding: clamp(14px, 4vw, 24px) clamp(40px, 10vw, 70px);
+      font-size: clamp(1.8rem, 6vw, 2.4rem);
       background: linear-gradient(45deg, #ffd700, #ffaa00, #ffd700);
       color: white;
       border: none;
       border-radius: 999px;
-      box-shadow: 0 12px 40px rgba(255,215,0,0.5);
+      box-shadow: 0 10px 35px rgba(255,215,0,0.5);
       animation: pulse 2s infinite;
     }
     @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
@@ -185,7 +188,7 @@
       <button id="noBtn">NO 😤</button>
     </div>
 
-    <div class="msg" id="msg">Areyy... NO touch chesthunnava? Button escape chesthundi ra 😂❤️</div>
+    <div class="msg" id="msg">Areyy... NO try chesthunnava? Button escape master ra 😂❤️</div>
   </div>
 
   <div id="surpriseScreen">
@@ -200,12 +203,12 @@
       item.classList.add("float-item");
       item.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
       item.style.left = Math.random() * 100 + "vw";
-      item.style.animationDuration = (Math.random() * 7 + 7) + "s";
-      item.style.fontSize = (Math.random() * 2.5 + 1.8) + "rem";
+      item.style.animationDuration = (Math.random() * 8 + 8) + "s";
+      item.style.fontSize = (Math.random() * 2 + 1.5) + "rem";
       document.getElementById("floaties").appendChild(item);
-      setTimeout(() => item.remove(), 12000);
+      setTimeout(() => item.remove(), 14000);
     }
-    setInterval(createFloaty, 300);
+    setInterval(createFloaty, 350);
 
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
@@ -213,43 +216,50 @@
     const mainScreen = document.getElementById("mainScreen");
     const surpriseScreen = document.getElementById("surpriseScreen");
     const giftBtn = document.getElementById("giftBtn");
+    const container = document.querySelector(".container");
 
     function moveNo() {
-      const maxX = window.innerWidth - noBtn.offsetWidth - 60;
-      const maxY = window.innerHeight - noBtn.offsetHeight - 60;
-      let newX = Math.random() * maxX;
-      let newY = Math.random() * maxY;
+      // Container lopaliki matrame limit
+      const containerRect = container.getBoundingClientRect();
+      const maxX = containerRect.width - noBtn.offsetWidth - 30;
+      const maxY = containerRect.height - noBtn.offsetHeight - 30;
 
+      let newX = Math.random() * maxX + 15; // padding adjust
+      let newY = Math.random() * maxY + 15;
+
+      // Yes button area avoid (optional extra safety)
       const yesRect = yesBtn.getBoundingClientRect();
-      if (Math.abs(newX - yesRect.left) < 280 && Math.abs(newY - yesRect.top) < 280) {
-        newX += 350 * (Math.random() > 0.5 ? 1 : -1);
-        newY += 320 * (Math.random() > 0.5 ? 1 : -1);
+      const relYesLeft = yesRect.left - containerRect.left;
+      const relYesTop = yesRect.top - containerRect.top;
+      if (Math.abs(newX - relYesLeft) < 180 && Math.abs(newY - relYesTop) < 180) {
+        newX += 220 * (Math.random() > 0.5 ? 1 : -1);
+        newY += 200 * (Math.random() > 0.5 ? 1 : -1);
       }
 
       noBtn.style.left = newX + "px";
       noBtn.style.top = newY + "px";
-      noBtn.style.position = "fixed";
+      noBtn.style.position = "absolute"; // container relative ga undali
     }
 
-    // Hover or first touch → jump
+    // Initial position
+    setTimeout(moveNo, 500);
+
     noBtn.addEventListener("mouseover", moveNo);
     noBtn.addEventListener("touchstart", (e) => {
-      e.preventDefault(); // prevent any default touch behavior
+      e.preventDefault();
       moveNo();
     });
 
-    // Click / tap → shake + jump to new random position (button undi ne untundi)
     noBtn.addEventListener("click", (e) => {
       e.preventDefault();
       noBtn.classList.add("shake");
       setTimeout(() => {
         noBtn.classList.remove("shake");
-        moveNo(); // always jump to new place
+        moveNo();
       }, 400);
       msg.classList.add("visible");
     });
 
-    // Also listen to touchend for better mobile response
     noBtn.addEventListener("touchend", (e) => {
       e.preventDefault();
       noBtn.classList.add("shake");
@@ -270,7 +280,7 @@
     });
 
     giftBtn.addEventListener("click", () => {
-      const surpriseLink = "https://instagram.com/yourprofile"; // ← idhi marchu bro
+      const surpriseLink = "https://instagram.com/yourprofile"; // ← marchu bro
       document.body.style.transform = "scale(1.4)";
       document.body.style.opacity = "0";
       setTimeout(() => window.location.href = surpriseLink, 1000);
